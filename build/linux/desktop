@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=NeMod JSON UI Editor
+Comment=NeMod JSON UI Editor
+# The Exec line includes %u to pass the URL to the application
+Exec=/usr/local/bin/nemod-jsonui-editor.exe %u
+Terminal=false
+Type=Application
+Icon=nemod-jsonui-editor.exe
+Categories=Utility;
+StartupWMClass=nemod-jsonui-editor.exe
+
+ 
