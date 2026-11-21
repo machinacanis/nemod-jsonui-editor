@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /*
- * OreUI-inspired design tokens.
- * Values are derived from the OreUI visual spec used across the NeMod projects
- * (2px hard border, 4px bottom bevel, 3px highlight, zero radius).
+ * OreUI design tokens, aligned with the McUI/OreUI baseline:
+ * 2px hard border, 4px bottom bevel, 3px highlight, zero radius.
+ * Reference: ShenYuanOR/mcui-oreui (Vue port of Spectrollay-OreUI, MIT).
  */
 :root {
   --background: #48494a;
@@ -18,6 +18,7 @@
   --primary-foreground: #ffffff;
   --primary-hover: #2a641c;
   --primary-bevel: #1d4d13;
+  --primary-tint: #6cc349;
 
   --secondary: #d0d1d4;
   --secondary-foreground: #1e1e1f;
@@ -27,7 +28,7 @@
   --muted: #313233;
   --muted-foreground: #b1b2b5;
 
-  --accent: #58585a;
+  --accent: #8c8d90;
   --accent-foreground: #ffffff;
 
   --destructive: #ca3636;
@@ -46,6 +47,34 @@
   --panel: #313233;
   --text-dim: #d0d1d4;
   --text-dimmer: #b1b2b5;
+
+  /* OreUI surface scale */
+  --surface: #313233;
+  --surface-pressed: #242425;
+  --surface-light: #58585a;
+  --surface-hover: #8c8d90;
+  --control-inactive: #8c8d90;
+
+  /* Disabled */
+  --disabled-surface: #d0d1d4;
+  --disabled-border: #8c8d90;
+  --disabled-bevel: #b1b2b5;
+  --disabled-text: #48494a;
+
+  /* Specular bevels */
+  --specular-neutral: rgba(255, 255, 255, 0.2);
+  --specular-neutral-low: rgba(255, 255, 255, 0.1);
+  --specular-secondary: rgba(255, 255, 255, 0.6);
+  --specular-secondary-low: rgba(255, 255, 255, 0.4);
+  --specular-hover: rgba(255, 255, 255, 0.8);
+  --specular-hover-low: rgba(255, 255, 255, 0.6);
+
+  --inset-shadow:
+    inset 0 4px var(--surface-pressed), inset 2px 0 rgba(255, 255, 255, 0.08),
+    inset -2px -2px rgba(255, 255, 255, 0.05);
+  --panel-shadow:
+    inset 2px 2px rgba(255, 255, 255, 0.12), inset -2px -2px rgba(255, 255, 255, 0.08),
+    4px 4px rgba(0, 0, 0, 0.25);
 }
 
 @theme inline {
@@ -124,31 +153,60 @@
 
 /*
  * Bevel utilities mirror the OreUI material: a dark 4px bottom edge, a 3px
- * top-left highlight and a 7px bottom-right reflection. Buttons translate down
- * 4px and drop the bevel when pressed.
+ * top-left highlight and a 7px bottom-right reflection.
  */
 @utility ore-bevel-primary {
   box-shadow:
     inset 0 -4px 0 var(--primary-bevel),
-    inset 3px 3px 0 rgba(255, 255, 255, 0.2),
-    inset -3px -7px 0 rgba(255, 255, 255, 0.1);
+    inset 3px 3px 0 var(--specular-neutral),
+    inset -3px -7px 0 var(--specular-neutral-low);
 }
 
 @utility ore-bevel-secondary {
   box-shadow:
     inset 0 -4px 0 var(--secondary-bevel),
-    inset 3px 3px 0 rgba(255, 255, 255, 0.6),
-    inset -3px -7px 0 rgba(255, 255, 255, 0.4);
+    inset 3px 3px 0 var(--specular-secondary),
+    inset -3px -7px 0 var(--specular-secondary-low);
 }
 
 @utility ore-bevel-destructive {
   box-shadow:
     inset 0 -4px 0 var(--destructive-bevel),
-    inset 3px 3px 0 rgba(255, 255, 255, 0.2),
-    inset -3px -7px 0 rgba(255, 255, 255, 0.1);
+    inset 3px 3px 0 var(--specular-neutral),
+    inset -3px -7px 0 var(--specular-neutral-low);
+}
+
+@utility ore-bevel-inactive {
+  box-shadow:
+    inset 2px 2px 0 var(--specular-neutral),
+    inset -2px -2px 0 var(--specular-neutral-low);
+}
+
+/* Text inputs and other recessed controls: 4px inset top edge. */
+@utility ore-inset {
+  box-shadow: var(--inset-shadow);
+}
+
+/* Raised panel/card surface. */
+@utility ore-panel {
+  box-shadow: var(--panel-shadow);
+}
+
+/* Overflow menus and tooltips: light inner rim plus a hard drop shadow. */
+@utility ore-popover {
+  box-shadow:
+    inset 2px 2px 0 var(--surface-hover),
+    inset -2px -2px 0 var(--surface-hover),
+    4px 4px 0 #000;
 }
 
 @utility ore-outline {
-  outline: 2px solid var(--ring);
-  outline-offset: -2px;
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@utility ore-focus-input {
+  border-color: var(--ring);
+  outline: 2px solid var(--primary-tint);
+  outline-offset: 1px;
 }
